@@ -27,8 +27,8 @@ dependencies = [
 # ]
 
 [project.urls]
-"Homepage" = "https://github.com/ixenion/logger"
-"Bug Tracker" = "https://github.com/ixenion/logger/issues"
+"Homepage" = "https://github.com/ixenion/elogger"
+"Bug Tracker" = "https://github.com/ixenion/elogger/issues"
 
 # pytest staff
 [tool.pytest.ini_options]

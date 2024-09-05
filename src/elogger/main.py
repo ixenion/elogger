@@ -2,10 +2,9 @@
 # System imports #
 
 from datetime           import time, timedelta
-from os                 import path as os_path
 from pathlib            import Path
 from sys                import stdout
-from typing             import Any, Callable, Coroutine
+from typing             import Callable, Coroutine
 
 
 # ------------------- #
