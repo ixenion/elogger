@@ -32,7 +32,7 @@ logger.mymodule.info(f"This is info from 'mymodule'.")
 
 # All logger modules supports stdout.
 # Enable example:
-# By default every logger module has disabled stdout.
+# By default every logger module has enabled stdout.
 logger.mymodule.info(f"STDOUT disabled.")
 logger.mymodule.stdout_mode(True)
 logger.mymodule.info(f"STDOUT enabled.")

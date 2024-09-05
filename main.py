@@ -40,7 +40,7 @@ class LoggerUnit(_Logger):
         An object to dispatch logging messages to configured handlers.
     """
 
-    def __init__(self, module_name:str):
+    def __init__(self, module_name:str, stdout_mode:bool=True):
         super().__init__(
                 core=Core(),
                 exception=None,
@@ -58,6 +58,9 @@ class LoggerUnit(_Logger):
         # To manage enable/disable stdout mode.
         self.stdout_sink_enabled:bool = False
         self.stdout_sink_handler_id:int|None = None
+
+        if stdout_mode:
+            self.stdout_mode(enable=True)
 
 
     def stdout_mode(self, enable:bool) -> int|None:
@@ -166,6 +169,7 @@ class Logger(Singleton, dict):
     def create(
             self,
             module_name:str,
+            stdout_mode:bool=True,
             sink:str|Path|Callable|Coroutine|Handler|None=None,
             format:str|Callable="{time} {level} {message}",
             rotation:str|int|time|timedelta|Callable="10 MB",
@@ -206,7 +210,7 @@ class Logger(Singleton, dict):
             sink = Path(self.folder, module_name + extention.value)
 
         # Create Logger:
-        logger = LoggerUnit(module_name)
+        logger = LoggerUnit(module_name, stdout_mode)
         logger.add(
             sink=sink, format=format, rotation=rotation,
             retention=retention, compression=compression, level=level,
