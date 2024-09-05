@@ -1,19 +1,5 @@
 # -------------- #
 # System imports #
-from os             import path as os_path
-from pathlib        import Path
-from sys            import path as sys_path, stdout, stderr
-# Next two lines are nessesary for pytest
-# Othervise it imports __init__.py and cant find main.py
-# (which is strange)
-main_path = str( Path(os_path.abspath(__file__)).parent.parent )
-sys_path.append(main_path)
-
-# pytets-loguru
-# import logging
-# from loguru import logger as _logger
-# from loguru._logger import Logger as _Logger_def, Core
-# from pytest_loguru.plugin import caplog  # noqa: F401
 
 
 # ------------------- #
@@ -24,8 +10,8 @@ sys_path.append(main_path)
 # ------------- #
 # Local imports #
 
-from main           import Logger
-from utils.datastructures   import Const
+from elogger        import Logger
+
 
 # --------- #
 # CONSTANTS #

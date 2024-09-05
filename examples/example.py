@@ -1,20 +1,21 @@
-# -
-# Imports only for demo purpose
-
-from os import path as os_path
-from pathlib import Path
-import sys 
-main_path = str( Path(os_path.abspath(__file__)).parent.parent )
-sys.path.append(main_path)
-from main import logger
-
-# -
-# But one should use
-# from logger import Logger
-# Because 'logger' folder is a python module with __init__.py
+# -------------- #
+# System imports #
 
 
-# Use default 'main' logger module which will store logs to 'logs/main.log'
+# ------------------- #
+# Third party imports #
+
+
+# ------------- #
+# Local imports #
+
+from elogger        import Logger
+
+
+logger = Logger()
+
+
+
 # Demo of all logger levels.
 logger.main.info(f"This is info")
 logger.main.debug(f"This is debug")

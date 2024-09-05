@@ -3,9 +3,8 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 
-
 [project]
-name = "logger"
+name = "elogger"
 version = "0.7.0"
 authors = [
     { name="ixenion", email="stridjj@gmail.com" },
@@ -21,10 +20,11 @@ requires-python = ">=3.10"
 dependencies = [
     "loguru>=0.7.2",
 ]
-[project.optional-dependencies]
-fastcrc = [
-    "libscrc>=1.8.0",
-]
+
+# [project.optional-dependencies]
+# fastcrc = [
+#     "libscrc>=1.8.0",
+# ]
 
 [project.urls]
 "Homepage" = "https://github.com/ixenion/logger"
@@ -32,4 +32,5 @@ fastcrc = [
 
 # pytest staff
 [tool.pytest.ini_options]
-asyncio_default_fixture_loop_scope = "function"
+# "function", "class", "module", "package", "session"
+asyncio_default_fixture_loop_scope = "package"

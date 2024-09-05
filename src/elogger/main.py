@@ -18,8 +18,8 @@ from loguru._handler    import Handler
 # ------------- #
 # Local imports #
 
-from utils.datastructures    import LOG_PATH, Singleton, Const
-from utils.exceptions        import LoggerAttributeError
+from elogger.utils.datastructures    import LOG_PATH, Singleton, Const
+from elogger.utils.exceptions        import LoggerAttributeError
 
 
 
