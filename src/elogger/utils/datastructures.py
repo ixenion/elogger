@@ -24,9 +24,9 @@ from .additional     import env
 # CONSTANTS #
 # --------- #
 
-LOG_FOLDER = env("LOG_PATH", str, None)
+LOG_FOLDER = env("LOG_FOLDER", str, None)
 if LOG_FOLDER is None:
-    # That means 'LOG_PATH' is not set in environment variable.
+    # That means 'LOG_FOLDER' is not set in environment variable.
     LOG_FOLDER = Path(
             # Equals to "../../../../logs/"
             # (1) ./ -> (2) elogger (src) -> (3) src -> \
