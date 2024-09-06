@@ -36,6 +36,13 @@ Install the source as python package
 git clone https://github.com/ixenion/elogger
 cd elogger
 pip install -e .
+
+# Set LOG_PATH folder
+export LOG_PATH="../path/to/logs"
+# Otherwise will use default: "../" - one dir above from source.
+
+# Delete env var if needed:
+# unset LOG_PATH
 ```
 
 

@@ -224,7 +224,3 @@ class Logger(Singleton, dict):
         self[module_name] = logger
 
         return logger
-
-
-
-logger = Logger()

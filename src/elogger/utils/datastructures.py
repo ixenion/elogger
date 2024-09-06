@@ -3,7 +3,7 @@
 
 from dataclasses        import dataclass
 from enum               import Enum
-from os                 import path as os_path
+from os                 import path as os_path, environ
 from pathlib            import Path
 
 
@@ -15,6 +15,8 @@ from pathlib            import Path
 # ------------- #
 # Local imports #
 
+from .additional     import env
+
 
 
 
@@ -22,12 +24,21 @@ from pathlib            import Path
 # CONSTANTS #
 # --------- #
 
-LOG_PATH = Path(
-        # Equals to "../logs/"
-        Path(os_path.abspath(__file__)).parent.parent,
-        "logs",
-        )
+LOG_PATH = env("LOG_PATH", str, None)
+if LOG_PATH is None:
+    # That means 'LOG_PATH' is not set in environment variable.
+    LOG_PATH = Path(
+            # Equals to "../../../../logs/"
+            # (1) ./ -> (2) elogger (src) -> (3) src -> \
+            # (4) elogger (project) -> (5) external project
+            Path(os_path.abspath(
+                __file__)).parent.parent.parent.parent.parent,
+            "logs",
+            )
 
+
+# --------- #
+# FUNCTIONS #
 
 
 # ------- #
