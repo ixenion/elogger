@@ -24,7 +24,7 @@ from elogger.utils.datastructures    import Const
 # ------- #
 
 
-class TestDefaultLoggerModule:
+class TestCustomLoggerModule:
 
     def setup_method(self, method) -> None:
         """
@@ -47,7 +47,7 @@ class TestDefaultLoggerModule:
         del self.logger
 
 
-    def test_logger_default_sink(self, tmp_path) -> None:
+    def test_logger_custom_sink(self, tmp_path) -> None:
         """
             Here we try to make log entry and confirm that it was created.
 
@@ -59,13 +59,15 @@ class TestDefaultLoggerModule:
 
         # Create logger object (singleton)
         self.logger = Logger(folder_path=tmp_path)
+        # Create new logger module
+        self.logger.create("autotest")
         # Make one entry
         message = f"Test info message"
-        self.logger.main.info(message)
+        self.logger.autotest.info(message)
 
         # Construct log path
-        module_name:str = self.logger._default_module_name
-        module_ext:Const.Extentions = self.logger._default_module_ext
+        module_name:str = self.logger.autotest.module_name
+        module_ext:Const.Extentions = self.logger.autotest.extention
         module = module_name + module_ext.value
         log_path = tmp_path / module
 
@@ -76,7 +78,7 @@ class TestDefaultLoggerModule:
         assert message in content
 
 
-    def test_logger_default_levels(self, tmp_path) -> None:
+    def test_logger_custom_levels(self, tmp_path) -> None:
         """
             Here we try to make several log entries and check their level.
 
@@ -87,22 +89,27 @@ class TestDefaultLoggerModule:
         """
 
         # Create logger object (singleton)
+        Logger._reset_instance()
         self.logger = Logger(folder_path=tmp_path)
+        self.logger.create("autotest")
+
         message = f"Test info message"
         # Write all sorts of levels log
-        self.logger.main.trace(message)
-        self.logger.main.debug(message)
-        self.logger.main.info(message)
-        self.logger.main.info(message)
-        self.logger.main.success(message)
-        self.logger.main.warning(message)
-        self.logger.main.error(message)
-        self.logger.main.critical(message)
+        self.logger.autotest.trace(message)
+        self.logger.autotest.debug(message)
+        self.logger.autotest.info(message)
+        self.logger.autotest.info(message)
+        self.logger.autotest.success(message)
+        self.logger.autotest.warning(message)
+        self.logger.autotest.error(message)
+        self.logger.autotest.critical(message)
+
         # Construct log path
-        module_name:str = self.logger._default_module_name
-        module_ext:Const.Extentions = self.logger._default_module_ext
+        module_name:str = self.logger.autotest.module_name
+        module_ext:Const.Extentions = self.logger.autotest.extention
         module = module_name + module_ext.value
         log_path = tmp_path / module
+        
         # Read the log (will contain one line)
         with open(log_path, 'r') as f:
             content = f.read()
@@ -114,7 +121,7 @@ class TestDefaultLoggerModule:
 
     
     #TODO: Make proper tests.
-    def test_logger_default_stdout(self, tmp_path, caplog) -> None:
+    def test_logger_custom_stdout(self, tmp_path, caplog) -> None:
         """
             Here we try to make log entry and catch STDOUT.
 
@@ -126,27 +133,30 @@ class TestDefaultLoggerModule:
 
         # Create logger object (singleton)
         self.logger = Logger(folder_path=tmp_path)
+        self.logger = Logger(folder_path=tmp_path)
+        self.logger.create("autotest")
         # Set up (enable) STDOUT for default module
-        self.logger.main.stdout_mode(enable=True)
+        # (it enabled by default btw)
+        self.logger.autotest.stdout_mode(enable=True)
         
         # Write log
         magic_handler_id = \
-                self.logger.main.add(sink=caplog.handler, level=0)
+                self.logger.autotest.add(sink=caplog.handler, level=0)
         
         message = f"Test info message"
-        self.logger.main.info(message)
+        self.logger.autotest.info(message)
         tmp = caplog.text
 
         assert message in tmp
         
         # Disable stdout.
-        self.logger.main.stdout_mode(enable=False)
+        self.logger.autotest.stdout_mode(enable=False)
         # Next line should not be, otherwise we dont test stdout.
-        self.logger.main.remove(magic_handler_id)
+        self.logger.autotest.remove(magic_handler_id)
 
         
         message = f"Test info message - no stdout"
-        self.logger.main.info(message)
+        self.logger.autotest.info(message)
         tmp = caplog.text
 
         assert message not in tmp

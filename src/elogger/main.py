@@ -39,7 +39,9 @@ class LoggerUnit(_Logger):
         An object to dispatch logging messages to configured handlers.
     """
 
-    def __init__(self, module_name:str, stdout_mode:bool=True):
+    def __init__(self,
+                 module_name:str, extention:Const.Extentions,
+                 stdout_mode:bool=True):
         super().__init__(
                 core=Core(),
                 exception=None,
@@ -54,6 +56,7 @@ class LoggerUnit(_Logger):
                 )
 
         self.module_name:str = module_name
+        self.extention:Const.Extentions = extention
         # To manage enable/disable stdout mode.
         self.stdout_sink_enabled:bool = False
         self.stdout_sink_handler_id:int|None = None
@@ -209,7 +212,7 @@ class Logger(Singleton, dict):
             sink = Path(self.folder, module_name + extention.value)
 
         # Create Logger:
-        logger = LoggerUnit(module_name, stdout_mode)
+        logger = LoggerUnit(module_name, extention, stdout_mode)
         logger.add(
             sink=sink, format=format, rotation=rotation,
             retention=retention, compression=compression, level=level,

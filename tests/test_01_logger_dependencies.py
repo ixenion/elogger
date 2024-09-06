@@ -49,6 +49,7 @@ class TestDependenciesImport:
         """ Test that required libs are installed."""
 
         try:
+            # elogger depends on loguru
             from loguru import logger
             installed = True
         except ImportError as e:
