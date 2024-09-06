@@ -17,7 +17,7 @@ from loguru._handler    import Handler
 # ------------- #
 # Local imports #
 
-from elogger.utils.datastructures    import LOG_PATH, Singleton, Const
+from elogger.utils.datastructures    import LOG_FOLDER, Singleton, Const
 from elogger.utils.exceptions        import LoggerAttributeError
 
 
@@ -131,7 +131,7 @@ class Logger(Singleton, dict):
     """
     
 
-    def __init__(self, folder_path:Path|str=LOG_PATH) -> None:
+    def __init__(self, folder_path:Path|str=LOG_FOLDER) -> None:
         """
             Parameters:
 

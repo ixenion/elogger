@@ -24,10 +24,10 @@ from .additional     import env
 # CONSTANTS #
 # --------- #
 
-LOG_PATH = env("LOG_PATH", str, None)
-if LOG_PATH is None:
+LOG_FOLDER = env("LOG_PATH", str, None)
+if LOG_FOLDER is None:
     # That means 'LOG_PATH' is not set in environment variable.
-    LOG_PATH = Path(
+    LOG_FOLDER = Path(
             # Equals to "../../../../logs/"
             # (1) ./ -> (2) elogger (src) -> (3) src -> \
             # (4) elogger (project) -> (5) external project
