@@ -18,7 +18,10 @@ from loguru._handler    import Handler
 # Local imports #
 
 from elogger.utils.datastructures    import LOG_FOLDER, Singleton, Const
-from elogger.utils.exceptions        import LoggerAttributeError
+from elogger.utils.exceptions        import (
+        LoggerAttributeError,
+        ModuleNotFoundException,
+        )
 
 
 
@@ -227,3 +230,14 @@ class Logger(Singleton, dict):
         self[module_name] = logger
 
         return logger
+
+
+    def get_logger_unit(self, module_name:str) -> LoggerUnit:
+        """
+            Return logger module by string.
+            Example: logger.get_logger_unit(f"{some_module_name}").info(f"I'm here")
+        """
+        
+        if module_name in self:
+            return self[module_name]
+        raise ModuleNotFoundException(module_name)
